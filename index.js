@@ -87,7 +87,7 @@ function calculateAge(){
     let birthDate = new Date(props.birthDate);
     let years = currentDate.getFullYear() - birthDate.getFullYear();
     let months = currentDate.getMonth() - birthDate.getMonth();
-    let days = currentDate.getDay() - birthDate.getDay();
+    let days = currentDate.getDate() - birthDate.getDate();
     if (days < 0) {
         months--;
         const lastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 0);
@@ -112,6 +112,19 @@ function calculateAge(){
     if (minutes < 0) {
         hours--;
         minutes += 60;
+    }
+    if(hours < 0){
+        days--;
+        hours+=24;
+    }
+    if(days < 0){
+        months--;
+        const lastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+        days += lastMonth.getDate();
+    }
+    if(months < 0){
+        years--;
+        months += 12;
     }
 
     return {years,months,days,hours,minutes,seconds}
